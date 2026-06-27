@@ -28,5 +28,11 @@ public class UserService {
 
     }
 
+    public User registerCustomer(UserRequestDto userRequestDto){
+        User user = applicationTransformer.transformUserRequestDtoToUserModel(userRequestDto, UserType.CUSTOMER.toString());
+        this.userRepository.save(user);
+        return user;
+    }
+
 
 }

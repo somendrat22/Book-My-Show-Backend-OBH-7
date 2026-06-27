@@ -26,8 +26,9 @@ public class UserController {
     }
 
     @PostMapping("/customer/register")
-    public void createCustomer(@RequestBody User user){
-       log.info(user.toString());
+    public ResponseEntity<User> createCustomer(@RequestBody UserRequestDto userRequestDto){
+        User user = userService.registerCustomer(userRequestDto);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @PostMapping("/theater-owner/register")
