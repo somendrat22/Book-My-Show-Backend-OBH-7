@@ -1,17 +1,23 @@
 package com.acciojobs.book_my_show.models;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-@Getter
-@Setter
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Builder
+@Table(name = "users")
+@Entity
 // {fullname, email, password, }
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID sysId;
     private String userId;
     private String fullName;
     private String email;
