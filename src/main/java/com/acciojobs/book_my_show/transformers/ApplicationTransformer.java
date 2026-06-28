@@ -1,9 +1,11 @@
 package com.acciojobs.book_my_show.transformers;
 
 import com.acciojobs.book_my_show.dtos.HallRequestDto;
+import com.acciojobs.book_my_show.dtos.ShowRequestDto;
 import com.acciojobs.book_my_show.dtos.TheaterRequestDto;
 import com.acciojobs.book_my_show.dtos.UserRequestDto;
 import com.acciojobs.book_my_show.models.Hall;
+import com.acciojobs.book_my_show.models.Show;
 import com.acciojobs.book_my_show.models.Theater;
 import com.acciojobs.book_my_show.models.User;
 import com.acciojobs.book_my_show.services.HallService;
@@ -62,6 +64,28 @@ public class ApplicationTransformer {
                 .updatedAt(LocalDateTime.now())
                 .createdBy(theater.getOwner().getEmail())
                 .updatedBy(theater.getOwner().getEmail())
+                .build();
+    }
+
+    public Show transformShowDtoToShow(
+            ShowRequestDto showRequestDto,
+            Hall hall,
+            User user,
+            Long startTimeInSeconds,
+            Long endTimeInSeconds
+    ){
+        return Show.builder()
+                .hall(hall)
+                .showId(SystemUtility.generate("SHOW"))
+                .endTimeInSeconds(endTimeInSeconds)
+                .startTimeInSeconds(startTimeInSeconds)
+                .showPrice(showRequestDto.getShowPrice())
+                .startTime(showRequestDto.getStartTime())
+                .endTime(showRequestDto.getEndTime())
+                .createdBy(user.getEmail())
+                .updatedBy(user.getEmail())
+                .updatedAt(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 

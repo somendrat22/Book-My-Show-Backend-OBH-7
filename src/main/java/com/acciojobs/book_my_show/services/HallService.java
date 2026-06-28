@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.naming.directory.InvalidAttributesException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -47,6 +49,14 @@ public class HallService {
                 theater);
         hallRepository.save(hall);
         return hall;
+    }
+
+    public Hall verifyHallSysId(UUID hallSysId) throws InvalidAttributesException {
+        Optional<Hall> hall = hallRepository.findById(hallSysId);
+        if(hall.isEmpty()){
+            throw new InvalidAttributesException("Invalid hallId passed");
+        }
+        return hall.get();
     }
 
 }
