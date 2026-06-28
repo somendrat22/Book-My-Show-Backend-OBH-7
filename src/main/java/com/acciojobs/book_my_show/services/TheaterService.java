@@ -12,6 +12,8 @@ import com.acciojobs.book_my_show.transformers.ApplicationTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.naming.directory.InvalidAttributesException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -47,7 +49,14 @@ public class TheaterService {
         // save this theater inside the theater table
         theaterRepository.save(theater);
         return theater;
+    }
 
+    public Theater verifyTheaterSysId(UUID theaterSysId) throws InvalidAttributesException{
+        Optional<Theater> theater = theaterRepository.findById(theaterSysId);
+        if(theater.isEmpty()){
+            throw new InvalidAttributesException("Invalid theaterId passed");
+        }
+        return theater.get();
     }
 
 }

@@ -1,9 +1,12 @@
 package com.acciojobs.book_my_show.transformers;
 
+import com.acciojobs.book_my_show.dtos.HallRequestDto;
 import com.acciojobs.book_my_show.dtos.TheaterRequestDto;
 import com.acciojobs.book_my_show.dtos.UserRequestDto;
+import com.acciojobs.book_my_show.models.Hall;
 import com.acciojobs.book_my_show.models.Theater;
 import com.acciojobs.book_my_show.models.User;
+import com.acciojobs.book_my_show.services.HallService;
 import com.acciojobs.book_my_show.utilitis.SystemUtility;
 import org.springframework.stereotype.Component;
 
@@ -40,8 +43,25 @@ public class ApplicationTransformer {
                 .State(theaterRequestDto.getState())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
-                .createdBy("system")
-                .updatedBy("system")
+                .createdBy(user.getEmail())
+                .updatedBy(user.getEmail())
+                .build();
+    }
+
+    public Hall transformDtoToHallModel(
+            HallRequestDto hallRequestDto,
+            Theater theater
+    ){
+        return Hall.builder()
+                .hallId(SystemUtility.generate("HALL"))
+                .hallName(hallRequestDto.getHallName())
+                .theater(theater)
+                .seatCapacity(hallRequestDto.getSeatCapacityPerRow())
+                .rowRange(hallRequestDto.getRowRange())
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .createdBy(theater.getOwner().getEmail())
+                .updatedBy(theater.getOwner().getEmail())
                 .build();
     }
 

@@ -2,6 +2,7 @@ package com.acciojobs.book_my_show.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Data
 @Table(name = "halls")
 @Entity
+@Builder
 public class Hall {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
